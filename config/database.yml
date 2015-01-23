@@ -21,9 +21,7 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: mysql
-  database: goalforit
-  host: db.telavant.com
-  username: kwpro
-  password: 1fukyou
+  <<: *default
+  database: db/production.sqlite3
+
   
