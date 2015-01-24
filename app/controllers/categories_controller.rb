@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :logged_in_user, only: [:destroy, :new, :edit, :create, :update]
+  
   def index
     @categories = Category.all
     respond_to do |format|
