@@ -1,0 +1,5 @@
+<h1><%= @user.email %></h1>
+<% if current_user %>
+test current user: <%= current_user.email %>
+<% end %>
+<%= link_to 'Register', signup_path %>
