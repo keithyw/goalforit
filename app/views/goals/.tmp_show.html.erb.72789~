@@ -7,10 +7,9 @@
 	<strong>Description:</strong>
 	<%= @goal.description%>
 </p>
-<% if @goal.user %>
 <p>
 	<strong>Created By</strong>
 	<%= @goal.user.email %>
 </p>
-<% end %>
+
 <%= link_to 'Back', goals_path %>

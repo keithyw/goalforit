@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
   resources :categories, :goals, :users
   get 'signup' => 'users#new'
+  get 'goals/current/user' => 'goals#user'
   match 'signup' => 'users#create', :via => 'post'
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'

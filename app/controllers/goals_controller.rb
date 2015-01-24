@@ -1,12 +1,28 @@
 class GoalsController < ApplicationController
   skip_before_filter :verify_authenticity_token
+  before_action :logged_in_user, only: [:new, :create, :user]
   
+  def destroy
+    @goal = Goal.find(params[:id])
+    @goal.destroy
+    redirect_to goals_path
+  end
+
   def new
-    @goal = Goal.new
+    @goal = current_user.goals.build
   end
   
   def index
     @goals = Goal.all
+    respond_to do |format|
+      format.html
+      format.xml { render xml: @goals }
+      format.json { render json: @goals }
+    end
+  end
+  
+  def user
+    @goals = current_user.goals.all
     respond_to do |format|
       format.html
       format.xml { render xml: @goals }
@@ -24,7 +40,7 @@ class GoalsController < ApplicationController
   end
   
   def create
-    @goal = Goal.new(goal_params)
+    @goal = current_user.goals.build(goal_params)
     respond_to do |format|
       if @goal.save
         format.html { redirect_to @goal }

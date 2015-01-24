@@ -4,7 +4,11 @@
 <ul>
 	<% @goals.each do |goal| %>
 	<li>
-		<%= link_to goal.goal, goal_path(goal) %>
+		<%= link_to goal.goal, goal_path(goal) %> 
+		<% if goal.user %>
+			created by <%= goal.user.email  %> (<%= goal.user.id %>)
+		<% end %>
+		<%= link_to 'Delete', goal_path(goal), method: :delete, data: { confirm: 'Are you sure?' } %>
 	</li>
 	<% end %>
 </ul>
