@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
   skip_before_filter :verify_authenticity_token
-  before_action :logged_in_user, only: [:new, :create, :user]
+  before_action :logged_in_user, only: [:new, :create, :user, :edit, :update]
   
   def destroy
     @goal = Goal.find(params[:id])
@@ -27,6 +27,27 @@ class GoalsController < ApplicationController
       format.html
       format.xml { render xml: @goals }
       format.json { render json: @goals }
+    end
+  end
+  
+  def edit
+    @goal = current_user.goals.find(params[:id])
+  end
+  
+  def update
+    @goal = current_user.goals.find(params[:id])
+    if @goal.update(goal_params)
+      respond_to do |format|
+        format.html { redirect_to @goal }
+        format.xml { render xml: @goal, status: :ok, location: @goal }
+        format.json { render json: @goal, status: :ok, location: @goal }
+      end
+    else
+      respond_to do |format|
+        format.html { render 'edit' }
+        format.xml { render xml: @goal.errors, status: :unprocessable_entity }
+        format.json { render json: @goal.errors, status: :unprocessable_entity }
+      end
     end
   end
 

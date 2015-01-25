@@ -1,0 +1,41 @@
+<%= form_for @goal do |f| %>
+	<% if @goal.errors.any? %>
+	<div id="error_explanation">
+		<h2>
+			Has <%= pluralize(@goal.errors.count, "error") %> 
+		</h2>
+		<ul>
+			<% @goal.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+	<p>
+		<%= f.label :goal %><br/>
+		<%= f.text_field :goal %>
+	</p>
+	<p>
+		<%= f.label :description%><br/>
+		<%= f.text_field :description%>
+	</p>
+	<p>
+		<%= f.label :completed %><br/>
+		<%= f.text_field :completed %>
+	</p>
+	<p>
+		<%= f.label :is_recurring %><br/>
+		<%= f.check_box :is_recurring %>
+	</p>
+	<p>
+		<%= f.label :finish_time %><br/>
+		<%= f.text_field :finish_time %>
+	</p>
+	<p>
+		<%= f.label :category %><br/>
+		<%= f.collection_select(:category_id, Category.all, :id, :name) %>
+	</p>
+	<p>
+		<%= f.submit %>
+	</p>
+<% end %>
