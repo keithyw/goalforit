@@ -36,13 +36,16 @@ class GoalsController < ApplicationController
   
   def update
     @goal = current_user.goals.find(params[:id])
+    logger.debug("found goal")
     if @goal.update(goal_params)
+      logger.debug("update ok")
       respond_to do |format|
         format.html { redirect_to @goal }
         format.xml { render xml: @goal, status: :ok, location: @goal }
         format.json { render json: @goal, status: :ok, location: @goal }
       end
     else
+      logger.debug("update not ok")
       respond_to do |format|
         format.html { render 'edit' }
         format.xml { render xml: @goal.errors, status: :unprocessable_entity }
