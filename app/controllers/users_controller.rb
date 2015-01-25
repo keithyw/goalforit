@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:destroy, :index]
+  # before_action :logged_in_user, only: [:destroy, :index]
+  before_action :logged_in_user, only: [:destroy]
   
   skip_before_filter :verify_authenticity_token
   def index
