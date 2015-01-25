@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'welcome/index'
-  resources :categories, :goals, :users
+  resources :categories, :goals, :users, :profiles
   get 'signup' => 'users#new'
   get 'goals/current/user' => 'goals#user'
   match 'signup' => 'users#create', :via => 'post'
