@@ -16,8 +16,36 @@ class GoalsController < ApplicationController
     @goals = Goal.all
     respond_to do |format|
       format.html
-      format.xml { render xml: @goals }
-      format.json { render json: @goals }
+      format.xml { render :xml => @goals.to_xml(
+        :include => {
+          :user => {
+            :except => [:email, :password_digest, :created_at, :updated_at],
+            :include => {
+              :profile => {
+                :except => [:birthday, :created_at, :updated_at]
+              }
+            } 
+          },
+          :category => {
+            :except => [:created_at, :updated_at]
+          }
+        }
+      )}
+      format.json { render :json => @goals.to_json(
+        :include => {
+          :user => {
+            :except => [:email, :password_digest, :created_at, :updated_at],
+            :include => {
+              :profile => {
+                :except => [:birthday, :created_at, :updated_at]
+              }
+            } 
+          },
+          :category => {
+            :except => [:created_at, :updated_at]
+          }
+        }
+      )}
     end
   end
   
@@ -25,8 +53,20 @@ class GoalsController < ApplicationController
     @goals = current_user.goals.all
     respond_to do |format|
       format.html
-      format.xml { render xml: @goals }
-      format.json { render json: @goals }
+      format.xml { render :xml => @goals.to_xml(
+        :include => {          
+          :category => {
+            :except => [:created_at, :updated_at]
+          }
+        }
+      )}
+      format.json { render :json => @goals.to_json(
+        :include => {          
+          :category => {
+            :except => [:created_at, :updated_at]
+          }
+        }
+      )}
     end
   end
   
@@ -58,8 +98,36 @@ class GoalsController < ApplicationController
     @goal = Goal.find(params[:id])
     respond_to do |format|
       format.html
-      format.xml { render xml: @goal }
-      format.json { render json: @goal }
+      format.xml { render :xml => @goal.to_xml(
+        :include => {
+          :user => {
+            :except => [:email, :password_digest, :created_at, :updated_at],
+            :include => {
+              :profile => {
+                :except => [:birthday, :created_at, :updated_at]
+              }
+            } 
+          },
+          :category => {
+            :except => [:created_at, :updated_at]
+          }
+        }
+      )}
+      format.json { render :json => @goal.to_json(
+        :include => {
+          :user => {
+            :except => [:email, :password_digest, :created_at, :updated_at],
+            :include => {
+              :profile => {
+                :except => [:birthday, :created_at, :updated_at]
+              }
+            } 
+          },
+          :category => {
+            :except => [:created_at, :updated_at]
+          }
+        }
+      )}
     end
   end
   
