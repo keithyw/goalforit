@@ -10,6 +10,15 @@ class CategoriesController < ApplicationController
     end
   end
   
+  def goal_categories
+    @categories = Category.all
+    respond_to do |format|
+      format.json { render :json => @categories.to_json(
+        :methods => :goal_count
+      )}
+    end
+  end
+  
   def show
     @category = Category.find(params[:id])
     respond_to do |format|

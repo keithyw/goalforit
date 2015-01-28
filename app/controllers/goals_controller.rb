@@ -2,6 +2,11 @@ class GoalsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_action :logged_in_user, only: [:new, :create, :user, :edit, :update]
   
+  def created_at
+    created_at = attributes["created_at"]
+    created_at ? created_at.to_f : null
+  end
+
   def destroy
     @goal = Goal.find(params[:id])
     @goal.destroy
