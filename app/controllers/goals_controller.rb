@@ -152,6 +152,6 @@ class GoalsController < ApplicationController
   
   private
     def goal_params
-      params.require(:goal).permit(:goal, :description, :completed, :is_recurring, :finish_time)
+      params.require(:goal).permit(:goal, :description, :completed, :is_recurring, :finish_time, :category_id)
     end
 end
