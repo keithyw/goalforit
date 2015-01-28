@@ -10,6 +10,27 @@ class CategoriesController < ApplicationController
     end
   end
   
+  def goals
+    @category = Category.find(params[:id])
+    respond_to do |format|
+      format.json { render :json => @category.goals.to_json(
+        :include => {
+          :user => {
+            :except => [:email, :password_digest, :created_at, :updated_at],
+            :include => {
+              :profile => {
+                :except => [:birthday, :created_at, :updated_at]
+              }
+            } 
+          },
+          :category => {
+            :except => [:created_at, :updated_at]
+          }
+        }
+      )}
+    end
+  end
+  
   def goal_categories
     @categories = Category.all
     respond_to do |format|

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :categories, :goals, :users, :profiles
   get 'signup' => 'users#new'
   get 'goals/current/user' => 'goals#user'
+  get 'categories/:id/goals' => 'categories#goals'
   get 'goal_categories' => 'categories#goal_categories'
   match 'signup' => 'users#create', :via => 'post'
   get 'login' => 'sessions#new'
